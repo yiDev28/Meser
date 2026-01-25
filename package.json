@@ -1,7 +1,7 @@
 {
-  "name": "resto-manager",
+  "name": "meser-app",
   "private": true,
-  "version": "0.0.4",
+  "version": "0.0.9",
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -10,17 +10,24 @@
     "preview": "vite preview",
     "rebuild-sqlite": "electron-rebuild -f -w sqlite3",
     "build": "cross-env NODE_ENV=production npm run rebuild-sqlite && tsc && vite build && electron-builder",
-    "publish:local": "npm run build && for %f in (D:\\PublicacionesIIS\\RestoManagerUpdates\\*) do if /I not \"%~nxf\"==\"web.config\" del /Q \"%f\" && xcopy dist\\latest.yml D:\\PublicacionesIIS\\RestoManagerUpdates /Y && for /R dist %f in (RestoManager-*.exe *.blockmap) do xcopy \"%f\" D:\\PublicacionesIIS\\RestoManagerUpdates /Y"
+    "publish:local": "npm run build && for %f in (D:\\PublicacionesIIS\\MeserUpdates\\*) do if /I not \"%~nxf\"==\"web.config\" del /Q \"%f\" && xcopy dist\\latest.yml D:\\PublicacionesIIS\\MeserUpdates /Y && for /R dist %f in (Meser-*.exe *.blockmap) do xcopy \"%f\" D:\\PublicacionesIIS\\MeserUpdates /Y"
   },
   "build": {
-    "appId": "com.resto.manager",
-    "productName": "RestoManager",
+    "appId": "com.meser.app",
+    "productName": "Meser",
     "npmRebuild": false,
     "files": [
       "dist/**",
       "dist-electron/**",
       "package.json",
+      "public/**",
       ".env"
+    ],
+    "extraResources": [
+      {
+        "from": "src/main/windows/splash",
+        "to": "splash"
+      }
     ],
     "publish": [
       {
@@ -30,7 +37,7 @@
     ],
     "win": {
       "target": "nsis",
-      "artifactName": "RestoManager-Windows-${version}-Setup.${ext}"
+      "artifactName": "Meser-Windows-${version}-Setup.${ext}"
     },
     "directories": {
       "buildResources": "resources"

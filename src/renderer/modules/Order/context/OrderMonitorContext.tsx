@@ -42,7 +42,7 @@ export const OrderMonitorProvider: React.FC<ChildrenProps> = ({
           setAlert(null);
           return;
         }
-        setAlert({ type: "INFO", msg: "No hay ordenes pendientes." });
+        setAlert({ type: "NEUTRO", msg: "No hay ordenes pendientes." });
       } else {
         setAlert({ type: "WARNING", msg: response.msg });
       }

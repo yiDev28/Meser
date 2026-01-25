@@ -30,7 +30,7 @@ export const syncClientData = async (
     //  Construir la consulta a Supabase.
     let query = supabase
       .from("res_client")
-      .select("cli_id,cli_name, cli_create_dat, cli_last_upt")
+      .select("cli_id,cli_name,cli_url_logo, cli_create_dat, cli_last_upt")
       .eq("cli_id", clientId); // Filtra los registros por el ID del cliente.
 
     // Aplicar el filtro de marca de tiempo para la sincronización incremental.

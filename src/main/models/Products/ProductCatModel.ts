@@ -18,6 +18,11 @@ ProductCategory.init(
       allowNull: false,
       field: "pdc_name",
     },
+    urlImage: {
+      type: DataTypes.STRING(500),
+      allowNull: false,
+      field: "pdc_url_img",
+    },
     status: {
       type: DataTypes.INTEGER,
       allowNull: false,

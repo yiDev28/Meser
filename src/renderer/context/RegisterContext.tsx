@@ -3,13 +3,14 @@ import {
   useContext,
   useState,
   ReactNode,
+  useEffect,
 } from "react";
 import { ClientData } from "../../interfaces/app";
 
 interface RegisterContextType {
   isRegistered: boolean;
   setIsRegistered: (value: boolean) => void;
-  ClientData: ClientData | null;
+  clientData: ClientData | null;
   setClientData: (data: ClientData | null) => void;
 }
 
@@ -19,11 +20,19 @@ const RegisterContext = createContext<RegisterContextType | undefined>(
 
 export const RegisterProvider = ({ children }: { children: ReactNode }) => {
   const [isRegistered, setIsRegistered] = useState(false);
-  const [ClientData, setClientData] = useState<ClientData | null>(null);
+  const [clientData, setClientData] = useState<ClientData | null>(null);
+
+  useEffect(() => {
+    const storedClientData = localStorage.getItem("clientData");
+    if (storedClientData) {
+      setClientData(JSON.parse(storedClientData));
+      setIsRegistered(true);
+    }
+  }, []);
 
   return (
     <RegisterContext.Provider
-      value={{ isRegistered, setIsRegistered, ClientData, setClientData }}
+      value={{ isRegistered, setIsRegistered, clientData, setClientData }}
     >
       {children}
     </RegisterContext.Provider>

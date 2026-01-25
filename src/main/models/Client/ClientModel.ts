@@ -22,6 +22,11 @@ Client.init(
       allowNull: true,
       field: "cli_token",
     },
+    logoPath: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      field: "cli_logo_path",
+    },  
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,

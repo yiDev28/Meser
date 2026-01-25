@@ -8,6 +8,7 @@ export interface LoginClient {
 export interface ClientData {
   idClient: string ;
   nameClient: string;
+  logoPath: string;
 }
 
 export interface LoginUser {

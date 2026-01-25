@@ -12,11 +12,10 @@ function AlertBanner({ alert }: { alert: TypeMsg }) {
         borderWidth: "1px",
         borderStyle: "solid",
       }}
-      className={`p-5 rounded-xl  mb-4 `}
+      className={`p-5 rounded-lg  mb-4 `}
     >
       <h3 className="font-bold">{alertConfig.title}</h3>
-      <p className=" sm:inline ml-2">
-        {alert.msg}</p>
+      <p className=" sm:inline ml-2">{alert.msg}</p>
     </div>
   );
 }

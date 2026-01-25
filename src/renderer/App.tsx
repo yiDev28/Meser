@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { AuthProvider } from "./context/AuthContext";
 import { Navigation } from "./router/Navigation";
-import { defaultAlert, useAlertService } from "./components/Modals/AlertService";
+import {  useAlertService } from "./components/Modals/AlertService";
 import { useVerifyApp } from "./modules/auth/hooks/useVerifyApp";
 import RegisterAppPage from "./modules/auth/RegisterAppPage";
 

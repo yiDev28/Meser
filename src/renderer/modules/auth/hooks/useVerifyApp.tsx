@@ -20,6 +20,7 @@ export const useVerifyApp = () => {
       if (res.code === 0) {
         setIsRegistered(true);
         setClientData(res.data ?? null);
+        localStorage.setItem("clientData", JSON.stringify(res.data));
       } else {
         setIsRegistered(false);
         defaultAlert({

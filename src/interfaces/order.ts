@@ -35,6 +35,7 @@ export interface MenuItemDTO {
 
 // Order Type DTO
 export interface OrderTypeDTO {
+  icon: any;
   id: number;
   description: string;
   name: string;

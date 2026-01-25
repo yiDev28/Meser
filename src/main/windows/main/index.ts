@@ -24,18 +24,18 @@ export async function createWindow() {
   }
 
   // Tu lógica para la CSP se mantiene
-  win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
-    callback({
-      responseHeaders: {
-        ...details.responseHeaders,
-        "Content-Security-Policy": [
-          app.isPackaged
-            ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'"
-            : "default-src 'self' http://localhost:5173; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'",
-        ],
-      },
-    });
+ win.webContents.session.webRequest.onHeadersReceived((details, callback) => {
+  callback({
+    responseHeaders: {
+      ...details.responseHeaders,
+      "Content-Security-Policy": [
+        app.isPackaged
+          ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:;"
+          : "default-src 'self' http://localhost:5173 http://localhost:3000 https://*.supabase.co; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:3000 https://*.supabase.co; img-src 'self' data: http://localhost:5173 http://localhost:3000 https://*.supabase.co; ",
+      ],
+    },
   });
+});
 
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);

@@ -7,6 +7,10 @@ import MenuItem from "@/main/models/Menu/MenuItemModel";
 import Menu from "@/main/models/Menu/MenuModel";
 import OrderType from "@/main/models/Order/OrderTypeModel";
 import { getErrorMessage } from "@/utils/errorUtils";
+import { TableDTO } from "@/interfaces/table";
+import Table from "@/main/models/Establishment/TableModel";
+import { or } from "sequelize";
+import { ProductCategoryDTO } from "@/interfaces/product";
 
 export async function getTypeOrder(): Promise<RESPONSE<OrderTypeDTO[]>> {
   try {
@@ -90,5 +94,49 @@ export async function getMenu(): Promise<RESPONSE<MenuDTO>> {
       -1,
       "Error inesperado al consultar menu: " + getErrorMessage(error)
     );
+  }
+}
+
+export async function getTables(): Promise<RESPONSE<TableDTO[]>> {
+  try {
+    const typeOrder = await Table.findAll({
+      attributes: {
+        exclude: ["status", "userId", "createdAt", "updatedAt"],
+      },
+      raw: false, // Dejamos raw en `false` para que los datos anidados se mantengan
+      nest: true, // Esto permite que los resultados anidados se estructuren correctamente
+    });
+
+    return NEW_RESPONSE(
+      0,
+      "",
+      typeOrder.map((type: any) =>
+        typeof type.get === "function" ? type.get({ plain: true }) : type
+      ) as TableDTO[]
+    );
+  } catch (error) {
+    return NEW_RESPONSE(-1, "Error inesperado: " + getErrorMessage(error));
+  }
+}
+
+export async function getCategoriesProducts(): Promise<RESPONSE<ProductCategoryDTO[]>> {
+  try {
+    const typeOrder = await ProductCategory.findAll({
+      attributes: {
+        exclude: ["status", "userId", "createdAt", "updatedAt"],
+      },
+      raw: false, // Dejamos raw en `false` para que los datos anidados se mantengan
+      nest: true, // Esto permite que los resultados anidados se estructuren correctamente
+    });
+
+    return NEW_RESPONSE(
+      0,
+      "",
+      typeOrder.map((type: any) =>
+        typeof type.get === "function" ? type.get({ plain: true }) : type
+      ) as ProductCategoryDTO[]
+    );
+  } catch (error) {
+    return NEW_RESPONSE(-1, "Error inesperado: " + getErrorMessage(error));
   }
 }

@@ -9,6 +9,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
+// Botomes tipo accion cuadrados con icono y texto ideal sin label
 export function ButtonActions({
   type = "button",
   mode = "info",
@@ -22,6 +23,8 @@ export function ButtonActions({
     primary: "bg-primary text-neutral-light hover:bg-primary/80",
     quaternary: "bg-quaternary text-neutral-light hover:bg-quaternary/90",
     quaternary_light: "bg-background text-quaternary outline hover:text-neutral-light hover:bg-quaternary/90",
+    success: "bg-success text-neutral-light hover:bg-success/85",
+    warning: "bg-warning text-neutral-light hover:bg-warning/85",
     danger: "bg-error text-neutral-light hover:bg-error/85",
     info: "bg-neutral-gray text-neutral-dark hover:bg-neutral-dark hover:text-white",
   };

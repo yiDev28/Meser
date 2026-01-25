@@ -41,7 +41,7 @@ function TableOrders({ orders }: { orders: OrderDTO[] }) {
           {orders.map((order) => {
             return (
               <tr
-                className="border-b border-neutral-gray/30 hover:bg-background-light"
+                className="border-b border-neutral-gray/30 hover:bg-background"
                 key={order.id}
               >
                 <td className="py-1 px-2 font-bold">{order.localNumber}</td>

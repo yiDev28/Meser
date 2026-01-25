@@ -11,11 +11,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   //<React.StrictMode>
     <LoadingProvider>
       <LoaderPulse />
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
       <RegisterProvider>
         <App />
       </RegisterProvider>
     </LoadingProvider>
-  //</React.StrictMode>
+  // </React.StrictMode>
 );
 
