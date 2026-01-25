@@ -19,4 +19,10 @@ export const alertDicc: Record<string, {title:string, background: string; text: 
     background: "var(--color-info-light)",
     text: "var(--color-info)",
   },
+  NEUTRO: {
+    title:"Información",
+    background: "var(color-neutral-light)",
+    text: "var(--color-neutral-gray)",
+  },
+
 };

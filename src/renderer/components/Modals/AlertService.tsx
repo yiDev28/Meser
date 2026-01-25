@@ -35,6 +35,7 @@ export function useAlertService() {
   };
 
   showAlert = (opts: AlertOptions) => {
+    console.log(isVisible);
     setOptions(opts);
     setIsOpen(true);
     setTimeout(() => setIsVisible(true), 50); // un pequeño delay para que active la animación
@@ -56,7 +57,7 @@ export function useAlertService() {
     isOpen && (
       <div className="fixed inset-0 flex items-center justify-center bg-dark-fixed/70 z-50 animate-fadeIn">
         {/* Caja del modal con zoom */}
-        <div className="bg-background p-10 rounded-2xl max-w-[30rem] w-full animate-scaleIn">
+        <div className="bg-background p-10 rounded-lg max-w-[30rem] w-full animate-scaleIn">
           <div className={`flex justify-center ${currentColor}`}>
             {IconComponent && <IconComponent size={80} />}
           </div>

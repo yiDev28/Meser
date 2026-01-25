@@ -1,9 +1,22 @@
-import { VITE_DEV_SERVER_URL } from "@/main/main";
 import { app, BrowserWindow } from "electron";
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { pathToFileURL } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Rutas para desarrollo y producción
+const devBase = path.join(process.cwd(), "src", "main", "windows", "splash");
+const prodBase = app.isPackaged
+  ? path.join(process.resourcesPath, "splash")
+  : __dirname;
+
+const devIndexHtml = path.join(devBase, "index.html");
+const prodIndexHtml = path.join(prodBase, "index.html");
+const indexHtmlPath = fs.existsSync(devIndexHtml)
+  ? devIndexHtml
+  : prodIndexHtml;
 
 let splash: BrowserWindow | null = null;
 
@@ -24,39 +37,17 @@ export function createSplashWindow() {
     },
   });
 
-  // ✅ HTML inline (no archivo externo)
-  const html = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8" />
-        <style>
-          body {
-            background-color: #1e1e1e;
-            color: white;
-            font-family: sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-          }
-        </style>
-      </head>
-      <body>
-        <div id="status">Inicializando...</div>
-        <script>
-  window.splashAPI.onUpdate((msg) => {
-    document.getElementById('status').textContent = msg;
-  });
-</script>
-      </body>
-    </html>
-  `;
-
-  // Cargar el HTML directamente como Data URL
-  splash.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`);
-
+  // Si existe index.html, cargarlo directamente (permite rutas relativas a archivos locales)
+    try {
+      splash.loadFile(indexHtmlPath);
+    } catch (err) {
+      console.warn(
+        "Error cargando index.html con loadFile, intentando file:// URL. Error:",
+        err
+      );
+      splash.loadURL(pathToFileURL(indexHtmlPath).toString());
+    }
+  
   splash.once("ready-to-show", () => splash?.show());
 
   splash.webContents.on("did-finish-load", () => {

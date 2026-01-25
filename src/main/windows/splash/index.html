@@ -1,20 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Cargando Tavlo</title>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: 'unsafe-inline';"
+    />
     <style>
       body {
-        background: #1e1e1e;
-        color: #fff;
+        background-color: #d3d3d3;
+        color: rgb(3, 39, 3);
         font-family: sans-serif;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         height: 100vh;
         margin: 0;
       }
+      #status {
+        margin-top: 12px;
+      }
+
       .loader {
         width: 40px;
         height: 40px;
@@ -30,12 +37,16 @@
     </style>
   </head>
   <body>
-    <div class="loader"></div>
+    <img src="./logo-splash.png" alt="Logo" width="200" />
     <div id="status">Inicializando...</div>
+    <div class="loader"></div>
+
 
     <script>
-      window.splashAPI?.onStatusUpdate((msg) => {
-        document.getElementById("status").textContent = msg;
+      // El preload debería exponer window.splashAPI.onUpdate
+      window.splashAPI?.onUpdate((msg) => {
+        const el = document.getElementById("status");
+        if (el) el.textContent = msg;
       });
     </script>
   </body>

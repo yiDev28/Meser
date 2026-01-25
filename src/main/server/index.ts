@@ -4,6 +4,7 @@ import router from "./routes";
 
 export function startServer() {
   const app = express();
+  
   app.use(bodyParser.json());
 
   app.use("/api", router);

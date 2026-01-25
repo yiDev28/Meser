@@ -11,6 +11,9 @@ const windowType =
 // --- MAIN WINDOW  ---
 if (windowType === "main") {
   const electronAPI: ElectronAPI = {
+
+    exitApp: async () => await ipcRenderer.invoke("exit-app"),
+    
     // REGISTRO APP
     verifyRegisterApp: async () => await ipcRenderer.invoke("verify-register"),
     registerApp: async (data: LoginClient) =>
@@ -76,7 +79,9 @@ if (windowType === "main") {
 
     getTypeOrder: async () => await ipcRenderer.invoke("get-type-order"),
     getMenu: async () => await ipcRenderer.invoke("get-menu"),
+    getTables: async () => await ipcRenderer.invoke("get-tables"),
     getInvoices: async () => await ipcRenderer.invoke("get-invoices"),
+    getCategoriesProducts: async () => await ipcRenderer.invoke("get-categories-products"),
   };
 
   contextBridge.exposeInMainWorld("electron", electronAPI);
@@ -86,10 +91,15 @@ if (windowType === "main") {
 if (windowType === "splash") {
   console.log("SI LLEGO AL PRELOAD DEL SPLASH");
   contextBridge.exposeInMainWorld("splashAPI", {
+
+    exitApp: async () => await ipcRenderer.invoke("exit-app"),
+
     onUpdate: (callback: (msg: string) => void) => {
       ipcRenderer.on("splash-update", (_, msg) => callback(msg));
     },
   });
 }
+
+
 
 console.log(`[preload] loaded for ${windowType}`);

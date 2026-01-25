@@ -1,18 +1,23 @@
+import { OrderStatus } from "@/main/models/Order/OrderStatusModel";
+import OrderType from "@/main/models/Order/OrderTypeModel";
 import { BiSolidDish } from "react-icons/bi";
 import { FaHandHoldingMedical } from "react-icons/fa6";
-import {  GiCancel } from "react-icons/gi";
+import { GiCancel } from "react-icons/gi";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { MdOutlineDeliveryDining, MdTableRestaurant } from "react-icons/md";
 import { PiCookingPotBold } from "react-icons/pi";
 import { RiRestaurantLine } from "react-icons/ri";
 
-export const iconCardOrder: Record<string, React.ElementType> = {
+export const iconCardOrder: Record<OrderType | string, React.ElementType> = {
   ONSITE: MdTableRestaurant,
   DELIVERY: MdOutlineDeliveryDining,
   CARRY: FaHandHoldingMedical,
 };
 
-export const iconItemOrder: Record<string,{ icon: React.ElementType; color: string }> = {
+export const iconItemOrder: Record<
+  OrderStatus | string,
+  { icon: React.ElementType; color: string }
+> = {
   PENDING: {
     icon: BiSolidDish,
     color: "var(--color-neutro)",

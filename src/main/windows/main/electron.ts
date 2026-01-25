@@ -1,3 +1,4 @@
+import { TableDTO } from "@/interfaces/table";
 import { ClientData, LoginClient, LoginUser } from "../../../interfaces/app";
 import {
   CreateOrderDTO,
@@ -8,8 +9,14 @@ import {
 import { RESPONSE } from "../../../interfaces/response";
 import { UserInterface } from "../../../interfaces/user";
 import Invoice from "../../models/Invoice/InvoiceModel";
+import { ProductCategoryDTO } from "@/interfaces/product";
 
 export interface ElectronAPI {
+
+  //APP
+
+  exitApp: () => Promise<void>;
+  
   // REGISTRO APP
   verifyRegisterApp: () => Promise<RESPONSE<ClientData>>;
   registerApp: (data: LoginClient) => Promise<RESPONSE<ClientData>>;
@@ -61,6 +68,8 @@ export interface ElectronAPI {
   //PARAM ORDER
   getTypeOrder: () => Promise<RESPONSE<OrderTypeDTO[]>>;
   getMenu: () => Promise<RESPONSE<MenuDTO>>;
+  getTables: () => Promise<RESPONSE<TableDTO[]>>;
+  getCategoriesProducts:() => Promise<RESPONSE<ProductCategoryDTO[]>>;
 
   //FACTURAS
   getInvoices: () => Promise<RESPONSE<Invoice[]>>;

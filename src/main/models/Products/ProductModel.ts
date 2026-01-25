@@ -2,6 +2,7 @@ import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const { Model, DataTypes } = require("sequelize");
 import { sequelize } from "../../db/db";
+import { url } from "node:inspector";
 
 class Product extends Model {}
 
@@ -31,6 +32,11 @@ Product.init(
         key: "pdc_id",
       },
       field: "pro_category",
+    },
+    urlImage: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      field: "pro_url_img",
     },
     status: {
       type: DataTypes.INTEGER,

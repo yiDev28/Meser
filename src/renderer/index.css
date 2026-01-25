@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
---color-primary: var(--primary);
+  --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-tertiary: var(--tertiary);
   --color-quaternary: var(--quaternary);
@@ -26,8 +26,8 @@
 }
 
 :root {
-  --primary: #fb7318;
-  --secondary: #e44124;
+  --primary: #ff330f;
+  --secondary: #fb7318;
   --tertiary: #f9cb43;
   --quaternary: #a89c29;
   --background: #faf6f6;
@@ -36,7 +36,7 @@
   --neutral-gray: #919496;
   --success: #07a53c;
   --success-light: #99daaf;
-  --error: #9b1f00;
+  --error: #c91313;
   --error-light: #f5bebe;
   --info: #2875e9;
   --info-light: #bedde9;
@@ -57,7 +57,7 @@
   --neutral-gray: #919496;
   --success: #07a53c;
   --success-light: #043a16;
-  --error: #9b1f00;
+  --error: #c91313;
   --error-light: #3a0a0a;
   --info: #2875e9;
   --info-light: #082733;

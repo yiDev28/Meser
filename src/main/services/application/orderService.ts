@@ -17,6 +17,7 @@ import MenuItem from "@/main/models/Menu/MenuItemModel";
 import Invoice from "@/main/models/Invoice/InvoiceModel";
 import InvoiceItem from "@/main/models/Invoice/InvoiceItemModel";
 import { upsertSyncQueue } from "./syncQueue";
+import { ORDER_TYPE } from "@/interfaces/const/order.const";
 const require = createRequire(import.meta.url);
 const { Op } = require("sequelize");
 
@@ -29,7 +30,7 @@ export async function createOrder(
     const typeOrder = await OrderType.findByPk(orderData.orderType);
 
     // Validar datos obligatorios para ordenes a domicilio
-    if (typeOrder && typeOrder.paramType === "DELIVERY") {
+    if (typeOrder && typeOrder.paramType === ORDER_TYPE.DELIVERY) {
       if (orderData.name === undefined || orderData.name.trim() === "") {
         return NEW_RESPONSE(
           1,
@@ -74,7 +75,7 @@ export async function createOrder(
     }
 
     // Validar mesa si es orden en el local
-    if (typeOrder && typeOrder.paramType === "ONSITE") {
+    if (typeOrder && typeOrder.paramType === ORDER_TYPE.ONSITE) {
       if (orderData.tableId === undefined || orderData.tableId <= 0) {
         return NEW_RESPONSE(
           1,

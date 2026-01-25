@@ -1,5 +1,5 @@
 import "../env-init";
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, protocol } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import "./ipc/registerApp";
@@ -7,6 +7,7 @@ import "./ipc/auth";
 import "./ipc/order";
 import "./ipc/paramOrder";
 import "./ipc/invoice";
+import "./ipc/app"
 import { _initDb } from "./db/connection";
 import { startServer } from "./server";
 import { startSyncWorker } from "./services/application/syncQueue";
@@ -39,6 +40,7 @@ app.on("activate", async () => {
 });
 
 app.whenReady().then(async () => {
+  
   createSplashWindow();
 
   updateSplashMessage("Inicializando aplicación...");
@@ -47,13 +49,13 @@ app.whenReady().then(async () => {
   setTimeout(async () => {
     updateSplashMessage("Iniciando base de datos...");
     await _initDb();
-  }, 5000);
+  }, 1000);
 
   // Espera 10 segundos desde el inicio
   setTimeout(async () => {
     updateSplashMessage("Iniciando servidor...");
     startServer();
-  }, 100000);
+  }, 2000);
 
   // Espera 15 segundos desde el inicio
   setTimeout(async () => {
@@ -65,7 +67,7 @@ app.whenReady().then(async () => {
       closeSplash();
       await createWindow();
     }, 1000);
-  }, 15000);
+  }, 3000);
 
   // Auto-update en paralelo
   autoUpdater.checkForUpdatesAndNotify();
