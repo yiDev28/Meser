@@ -18,7 +18,7 @@ const CardCatProd: React.FC<CardCatProdProps> = ({
       className={` ${
         isSelected ? "bg-secondary" : "bg-neutral-light"
       } rounded-lg cursor-pointer text-neutral-dark py-4 
-        hover:shadow-xl hover:bg-neutral-gray/70 hover:text-neutral-light `}
+        hover:shadow-xl hover:bg-neutral-gray/70 hover:text-neutral-light animate-scaleIn`}
       onClick={onClick}
     >
       <div className="flex flex-col items-center justify-center">

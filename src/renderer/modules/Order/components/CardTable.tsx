@@ -12,7 +12,7 @@ const CardTable: React.FC<CardTableProps> = ({ table, onClick }) => {
   const IconComponent = table.id % 2 === 0 ? icons[1] : icons[0];
   return (
     <div
-      className={`bg-secondary rounded-lg cursor-pointer text-neutral-gray p-6 
+      className={`bg-secondary rounded-lg cursor-pointer text-neutral-gray p-6 animate-scaleIn
         hover:shadow-xl hover:scale-105 transition-all duration-200 ease-in-out`}
       onClick={onClick}
     >

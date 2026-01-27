@@ -1,4 +1,5 @@
-export function formatCurrency(value: number): string {
+export function formatCurrency(value: number| string): string {
+  value = typeof value === "string" ? parseFloat(value) : value;
   return new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",

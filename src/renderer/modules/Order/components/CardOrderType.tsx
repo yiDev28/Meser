@@ -13,7 +13,7 @@ const CardOrderType: React.FC<CardOrderTypeProps> = ({
   const IconComponent = iconCardOrder[orderType.paramType];
   return (
     <div
-      className={`bg-neutral-dark rounded-lg cursor-pointer text-neutral-dark p-4 border border-neutral-gray/40
+      className={`bg-neutral-dark rounded-lg cursor-pointer text-neutral-dark p-4 border border-neutral-gray/40 animate-scaleIn
         hover:shadow-xl hover:scale-105 transition-all duration-200 ease-in-out`}
       onClick={onClick}
       style={{

@@ -13,6 +13,8 @@ import { ORDER_TYPE } from "@/interfaces/const/order.const";
 import CardTable from "./CardTable";
 import CardCatProd from "./CardCatProd";
 import { CardProductMenu } from "./CardProductMenu";
+import { BiMessageSquareDetail } from "react-icons/bi";
+import TableResumeNewOrder from "./TableResumeNewOrder";
 
 interface ModalNewOrderProps {
   isOpen: boolean;
@@ -53,7 +55,7 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
     <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-neutral-dark/70 p-4 overflow-auto animate-fadeIn">
       <div
         className={`bg-background rounded-lg shadow-lg p-6 relative animate-scaleIn flex flex-col ${
-          step === 3 ? "w-[100vw] h-[95vh]" : "max-h-[90vh] w-full max-w-4xl"
+          step === 3 ? "w-[98vw] h-[95vh]" : "max-h-[90vh] w-full max-w-4xl"
         } transition-all duration-300 ease-in-out`}
       >
         <div className="flex justify-between items-center mb-5">
@@ -67,14 +69,14 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
             icon={MdClose}
           />
         </div>
-        <div className="px-10 py-5 flex-1 overflow-hidden flex flex-col">
+        <div className="py-3 flex-1 overflow-hidden flex flex-col">
           {/* Paso 1: Selección de tipo */}
           {step === 1 && (
             <div>
               <h3 className="mb-4 font-semibold">
                 Selecciona el tipo de orden
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
                 {orderType.map((t) => {
                   return (
                     <CardOrderType
@@ -95,6 +97,45 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
               <div className="space-y-3 overflow-y-auto overflow-x-hidden h-auto max-h-[60vh]">
                 {selectedType?.paramType === ORDER_TYPE.DELIVERY && (
                   <>
+                    <div className="animate-scaleIn">
+                      <InputGeneric
+                        name="name"
+                        label="Nombre cliente"
+                        type="text"
+                        value={payload.name?.toUpperCase()}
+                        onChange={handleChange}
+                        error={errors.name}
+                      />
+                    </div>
+
+                    <div className="animate-scaleIn">
+                      <InputGeneric
+                        name="phone"
+                        label="Telefono de contacto"
+                        type="tel"
+                        value={payload.phone}
+                        onChange={handleChange}
+                        placeholder="3XX-XXX-XXXX o 601-XXX-XXXX"
+                        error={errors.phone}
+                      />
+                    </div>
+
+                    <div className="animate-scaleIn">
+                      <InputGeneric
+                        name="address"
+                        label="Direccion de entrega"
+                        type="text"
+                        value={payload.address}
+                        onChange={handleChange}
+                        placeholder="Ejemplo: Calle 48 #15-20"
+                        error={errors.address}
+                      />
+                    </div>
+                  </>
+                )}
+
+                {selectedType?.paramType === ORDER_TYPE.CARRY && (
+                  <div className="animate-scaleIn">
                     <InputGeneric
                       name="name"
                       label="Nombre cliente"
@@ -103,36 +144,7 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
                       onChange={handleChange}
                       error={errors.name}
                     />
-                    <InputGeneric
-                      name="phone"
-                      label="Telefono de contacto"
-                      type="tel"
-                      value={payload.phone}
-                      onChange={handleChange}
-                      placeholder="3XX-XXX-XXXX o 601-XXX-XXXX"
-                      error={errors.phone}
-                    />
-                    <InputGeneric
-                      name="address"
-                      label="Direccion de entrega"
-                      type="text"
-                      value={payload.address}
-                      onChange={handleChange}
-                      placeholder="Ejemplo: Calle 48 #15-20"
-                      error={errors.address}
-                    />
-                  </>
-                )}
-
-                {selectedType?.paramType === ORDER_TYPE.CARRY && (
-                  <InputGeneric
-                    name="name"
-                    label="Nombre cliente"
-                    type="text"
-                    value={payload.name?.toUpperCase()}
-                    onChange={handleChange}
-                    error={errors.name}
-                  />
+                  </div>
                 )}
 
                 {selectedType?.paramType === ORDER_TYPE.ONSITE && (
@@ -173,7 +185,7 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
             <div className="flex flex-col h-full overflow-hidden">
               <div className="grid grid-cols-12  gap-4 h-full">
                 <div className="col-span-2 col-start-1 h-full overflow-y-auto overflow-x-hidden p-2 bg-primary rounded-lg">
-                  <div className="space-y-2">
+                  <div className="space-y-2 ">
                     {categoriesProducts.map((cat) => {
                       return (
                         <CardCatProd
@@ -188,10 +200,10 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
                 </div>
 
                 <div className="col-span-5 h-full overflow-y-auto overflow-x-hidden">
-                  <div className="grid grid-cols-1 gap-2 animate-fadeIn">
+                  <div className="grid grid-cols-1 gap-2">
                     {filteredProducts.map((item) => {
                       const added = payload.items.find(
-                        (i) => i.menuItemId === item.id
+                        (i) => i.menuItemId === item.id,
                       );
                       return (
                         <CardProductMenu
@@ -201,7 +213,8 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
                           notes={added?.notes}
                           onAdd={() => handleAddItem(item.id)}
                           onRemove={() => handleRemoveItem(item.id)}
-                          onChangeNotes={(value) =>handleNoteItem(item.id, value)
+                          onChangeNotes={(value) =>
+                            handleNoteItem(item.id, value)
                           }
                         />
                       );
@@ -210,37 +223,14 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
                 </div>
 
                 <div className="col-span-5 h-full overflow-y-auto overflow-x-hidden">
-                  {" "}
-                  <div>
-                    <h3 className="mb-4">Resumen de la orden</h3>
-                    <table className="w-full text-sm border">
-                      <thead className="bg-gray-200">
-                        <tr>
-                          <th className="p-2 text-left">Plato</th>
-                          <th className="p-2">Cantidad</th>
-                          <th className="p-2">Notas</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {payload.items.map((i) => {
-                          const product = menu?.menuItems.find(
-                            (m: { id: number }) => m.id === i.menuItemId
-                          );
-                          return (
-                            <tr key={i.menuItemId} className="border-t">
-                              <td className="p-2">{product?.product.name}</td>
-                              <td className="p-2 text-center">{i.quantity}</td>
-                              <td className="p-2">{i.notes || "-"}</td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                  <pre>{JSON.stringify(payload, null, 2)}</pre>
+                  <TableResumeNewOrder
+                    payload={payload}
+                    selectedType={selectedType!}
+                    tables={tables}
+                    menu={menu!}
+                  />
+                  {/* <pre>{JSON.stringify(payload, null, 2)}</pre> */}
                 </div>
-
-
                 
 
                 <div className="col-span-12 flex justify-between">
@@ -290,6 +280,6 @@ export const ModalNewOrder: React.FC<ModalNewOrderProps> = ({
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };

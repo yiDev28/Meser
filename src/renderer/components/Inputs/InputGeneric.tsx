@@ -41,7 +41,7 @@ export function InputGeneric({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {label && (
         <label className="block mb-1 text-neutral-dark/80 text-sm font-semibold">
           {label}

@@ -2,6 +2,7 @@ import { MenuItemDTO } from "@/interfaces/order";
 import { ButtonActions } from "@/renderer/components/Buttons/ButtonActions";
 import { ButtonGeneric } from "@/renderer/components/Buttons/ButtonGeneric";
 import { TexTareaGeneric } from "@/renderer/components/Inputs/TexTareaGeneric";
+import { formatCurrency } from "@/renderer/utils/formatPrice";
 import { useState } from "react";
 import { MdAdd, MdRemove } from "react-icons/md";
 
@@ -27,7 +28,7 @@ export const CardProductMenu: React.FC<MenuProductCardProps> = ({
   return (
     <div className="bg-neutral-light rounded-lg shadow-sm border border-neutral-gray/30 p-2 flex gap-4 animate-scaleIn">
       {/* Imagen */}
-      <div className="w-28 h-28 flex-shrink-0 rounded-lg overflow-hidden bg-background">
+      <div className="w-28 h-28 shrink-0 rounded-lg overflow-hidden bg-background">
         {item.product.urlImage ? (
           <img
             src={item.product.urlImage}
@@ -53,7 +54,7 @@ export const CardProductMenu: React.FC<MenuProductCardProps> = ({
           <p className="text-sm text-neutral-dark/80">
             {item.product.description}
           </p>
-          <p className="mt-1 font-bold text-lg">${item.price}</p>
+          <p className="mt-1 font-bold text-lg">{formatCurrency(item.price)}</p>
         </div>
 
         {/* Acciones */}
@@ -68,7 +69,7 @@ export const CardProductMenu: React.FC<MenuProductCardProps> = ({
           <div className="flex items-center gap-3">
             <ButtonActions icon={MdRemove} onClick={onRemove} mode="danger" />
 
-            <span className="min-w-[20px] text-center font-semibold">
+            <span className="min-w-5 text-center font-semibold">
               {quantity}
             </span>
 

@@ -3,6 +3,7 @@ import { CreateOrderDTO } from "@/interfaces/order";
 import { FormCreateOrder } from "@/interfaces/types/errors.type";
 import { defaultAlert } from "@/renderer/components/Modals/AlertService";
 import { useParamOrder } from "@/renderer/context/ParamOrderContext";
+import { UPPERCASE_FIELDS } from "@/renderer/utils/inputsTransform";
 import {
   validateErrorsOrUndefined,
   validateField,
@@ -79,11 +80,15 @@ export const useNewOrder = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPayload({
-      ...payload,
-      [e.target.name]: e.target.value,
-    });
-    console.log();
+    const { name, value } = e.target;
+
+  setPayload((prev) => ({
+    ...prev,
+    [name]: UPPERCASE_FIELDS.includes(name)
+      ? value.toUpperCase()
+      : value,
+  }));
+
     setErrors({
       ...errors,
       [e.target.name]: undefined,

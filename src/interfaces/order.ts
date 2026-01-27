@@ -71,20 +71,20 @@ export interface OrderDTO {
   items: OrderItemDTO[];
 }
 
-//Order Creation DTO
-export interface CreateOrderDTO {
-  customerId: number;
-  orderType: number;
-  tableId?: number;
-  name?: string;
-  address?: string;
-  codCity?: number;
-  phone?: string;
-  notes?: string;
-  userId: number;
-  items: {
-    menuItemId: number;
-    quantity: number;
-    notes?: string;
-  }[];
-}
+ //Order Creation DTO
+ export interface CreateOrderDTO {
+   customerId: number;
+   orderType: number;
+   tableId?: number;
+   name?: string;
+   address?: string;
+   codCity?: number;
+   phone?: string;
+   notes?: string;
+   userId: number;
+   items: {
+     menuItemId: number;
+     quantity: number;
+     notes?: string;
+   }[];
+ }

@@ -1,0 +1,1 @@
+export const UPPERCASE_FIELDS = ["name", "lastName", "customerName"];
