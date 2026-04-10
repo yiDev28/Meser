@@ -105,7 +105,7 @@ export default function ScreenSelector({
               }}
               className="w-4 h-4 text-primary"
             />
-            Detectar automáticamente la pantalla al iniciar
+            Detectar automáticamente la pantalla al iniciar, esto hará que la aplicación se abra en la pantalla donde se encuentre el mouse al iniciar. 
           </label>
         </div>
       </div>
