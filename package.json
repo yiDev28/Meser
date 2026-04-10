@@ -1,0 +1,90 @@
+{
+  "name": "meser-app",
+  "private": true,
+  "version": "0.0.9",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "rebuild-sqlite": "electron-rebuild -f -w sqlite3",
+    "build": "cross-env NODE_ENV=production npm run rebuild-sqlite && tsc && vite build && electron-builder",
+    "publish:local": "npm run build && for %f in (D:\\PublicacionesIIS\\MeserUpdates\\*) do if /I not \"%~nxf\"==\"web.config\" del /Q \"%f\" && xcopy dist\\latest.yml D:\\PublicacionesIIS\\MeserUpdates /Y && for /R dist %f in (Meser-*.exe *.blockmap) do xcopy \"%f\" D:\\PublicacionesIIS\\MeserUpdates /Y"
+  },
+  "build": {
+    "appId": "com.meser.app",
+    "productName": "Meser",
+    "npmRebuild": false,
+    "files": [
+      "dist/**",
+      "dist-electron/**",
+      "package.json",
+      "public/**",
+      ".env"
+    ],
+    "extraResources": [
+      {
+        "from": "src/main/windows/splash",
+        "to": "splash"
+      }
+    ],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://localhost:85/"
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "artifactName": "Meser-Windows-${version}-Setup.${ext}"
+    },
+    "directories": {
+      "buildResources": "resources"
+    }
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.74.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.3",
+    "electron-updater": "^6.6.2",
+    "express": "^5.1.0",
+    "idb": "^8.0.3",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-icons": "^5.6.0",
+    "react-responsive-masonry": "^2.7.1",
+    "react-router-dom": "^7.9.3",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "tailwindcss": "^4.1.14"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "@types/react-responsive-masonry": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "cross-env": "^10.1.0",
+    "electron": "^38.2.2",
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
+    "eslint": "^9.37.0",
+    "eslint-plugin-react-hooks": "^6.1.1",
+    "eslint-plugin-react-refresh": "^0.4.23",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9",
+    "vite-plugin-electron": "^0.29.0",
+    "vite-plugin-electron-renderer": "^0.14.6"
+  },
+  "optionalDependencies": {
+    "pg-hstore": "^2.3.4"
+  }
+}

@@ -1,0 +1,10 @@
+export const ORDER_TYPES_PARAMS = {
+  TIP: "TIP",
+  TIP_PERCENT: "TIP_PERCENT",
+  DELIVERY:"DELIVERY",
+  OTHER_FEES:"OTHER_FEES",
+  DELIVERY_FEE:"DELIVERY_FEE"
+} as const;
+
+export type OrderTypesParam =
+  typeof ORDER_TYPES_PARAMS[keyof typeof ORDER_TYPES_PARAMS];

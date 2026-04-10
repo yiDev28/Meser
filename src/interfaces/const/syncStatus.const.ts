@@ -1,0 +1,5 @@
+export enum SYNC_STATUS {
+  SUCCESS = "SUCCESS",
+  PENDING = "PENDING",
+  ERROR = "ERROR",
+}

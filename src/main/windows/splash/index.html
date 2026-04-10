@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: 'unsafe-inline';"
+    />
+    <style>
+      body {
+        background-color: #d3d3d3;
+        color: rgb(3, 39, 3);
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      #status {
+        margin-top: 12px;
+      }
+
+      .loader {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #ffffff33;
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+      }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <img src="./logo-splash.png" alt="Logo" width="200" />
+    <div id="status">Inicializando...</div>
+    <div class="loader"></div>
+
+
+    <script>
+      // El preload debería exponer window.splashAPI.onUpdate
+      window.splashAPI?.onUpdate((msg) => {
+        const el = document.getElementById("status");
+        if (el) el.textContent = msg;
+      });
+    </script>
+  </body>
+</html>
