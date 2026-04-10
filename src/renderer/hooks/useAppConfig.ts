@@ -13,9 +13,11 @@ interface AppConfigHook {
   error: string | null;
   getConfig: (key: string) => string | undefined;
   setConfig: (key: string, value: string) => Promise<void>;
+  reloadConfig: () => Promise<void>;
   displays: DisplayInfo[];
   getDisplays: () => Promise<void>;
   setScreenIndex: (index: number) => Promise<void>;
+  detectDisplay: () => Promise<number>;
 }
 
 export const useAppConfig = (): AppConfigHook => {
@@ -74,6 +76,16 @@ export const useAppConfig = (): AppConfigHook => {
     }
   }, []);
 
+  const detectDisplay = useCallback(async (): Promise<number> => {
+    try {
+      const response = await window.electron.detectDisplay();
+      return response.data ?? 0;
+    } catch (err) {
+      console.error("Error detecting display:", err);
+      return 0;
+    }
+  }, []);
+
   useEffect(() => {
     loadConfig();
   }, [loadConfig]);
@@ -84,8 +96,10 @@ export const useAppConfig = (): AppConfigHook => {
     error,
     getConfig,
     setConfig,
+    reloadConfig: loadConfig,
     displays,
     getDisplays,
     setScreenIndex,
+    detectDisplay,
   };
 };

@@ -31,7 +31,7 @@ const App: React.FC = () => {
     const hasMultipleDisplays = displays.length > 1;
 
     if (autoDetect && hasMultipleDisplays) {
-      detectDisplay().then((detectedIndex) => {
+      detectDisplay().then((detectedIndex: number) => {
         if (screenIndex === undefined || parseInt(screenIndex, 10) !== detectedIndex) {
           window.electron.setScreenIndex(detectedIndex);
         }
