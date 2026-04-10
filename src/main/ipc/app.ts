@@ -27,6 +27,11 @@ ipcMain.handle("exit-app", async () => {
     app.quit();
 });
 
+ipcMain.handle("restart-app", async () => {
+  app.relaunch();
+  app.quit();
+});
+
 ipcMain.handle("minimize-window", async () => {
   const win = getMainWindow();
   win?.minimize();

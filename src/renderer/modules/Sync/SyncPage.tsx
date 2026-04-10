@@ -20,6 +20,8 @@ function SyncPageContent() {
     downloadTableFromCloud,
     uploadPendingToCloud,
     retryErrors,
+    pushIntervalMin,
+    pullIntervalHrs,
   } = useSync();
 
   const isAnySyncing = isSyncing.pull || isSyncing.push || isSyncing.pullTable !== null || isSyncing.pushTable !== null;
@@ -42,8 +44,7 @@ function SyncPageContent() {
             Sincronización
           </h1>
           <p className="text-sm text-neutral-gray mt-1">
-            Push: cada {parseInt(import.meta.env.VITE_MESER_SYNC_PUSH_INTERVAL_MS) / 60000} min | 
-            Pull: cada {(parseInt(import.meta.env.VITE_MESER_SYNC_PULL_INTERVAL_MS) / 3600) / 1000} h
+            Push: cada {pushIntervalMin} min | Pull: cada {pullIntervalHrs} h
           </p>
         </div>
         <ButtonActionsPadding

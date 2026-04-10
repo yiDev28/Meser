@@ -9,7 +9,7 @@ class AppConfig extends Model {}
 AppConfig.init(
   {
     key: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       primaryKey: true,
       allowNull: false,
       field: "cfg_key",
@@ -18,6 +18,23 @@ AppConfig.init(
       type: DataTypes.TEXT,
       allowNull: true,
       field: "cfg_value",
+    },
+    type: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      defaultValue: "string",
+      field: "cfg_type",
+    },
+    category: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+      defaultValue: "general",
+      field: "cfg_category",
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      field: "cfg_description",
     },
     status: {
       type: DataTypes.TEXT,

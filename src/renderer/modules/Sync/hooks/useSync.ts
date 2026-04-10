@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import {
   SyncModelDTO,
   SyncStatusDTO,
@@ -6,6 +6,7 @@ import {
 } from "@/interfaces/sync";
 import { getErrorMessage } from "@/utils/errorUtils";
 import { useSync as useSyncContext, IsSyncingState } from "../context/SyncContext";
+import { useAppConfig } from "@/renderer/hooks/useAppConfig";
 
 interface UseSyncReturn {
   models: SyncModelDTO[];
@@ -19,6 +20,8 @@ interface UseSyncReturn {
   downloadTableFromCloud: (tableName: string) => Promise<void>;
   uploadPendingToCloud: () => Promise<void>;
   retryErrors: () => Promise<void>;
+  pushIntervalMin: number;
+  pullIntervalHrs: number;
 }
 
 export const useSync = (): UseSyncReturn => {
@@ -33,6 +36,16 @@ export const useSync = (): UseSyncReturn => {
     setIsSyncing,
     setAlert,
   } = useSyncContext();
+
+  const { getConfig } = useAppConfig();
+
+  const pushIntervalMin = useMemo(() => {
+    return parseInt(getConfig("sync_push_interval_ms") || "300000", 10) / 60000;
+  }, [getConfig]);
+
+  const pullIntervalHrs = useMemo(() => {
+    return parseInt(getConfig("sync_pull_interval_ms") || "7200000", 10) / 3600000;
+  }, [getConfig]);
 
   const fetchSyncData = useCallback(async () => {
     await fetchData();
@@ -134,5 +147,7 @@ export const useSync = (): UseSyncReturn => {
     downloadTableFromCloud,
     uploadPendingToCloud,
     retryErrors,
+    pushIntervalMin,
+    pullIntervalHrs,
   };
 };

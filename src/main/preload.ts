@@ -119,9 +119,11 @@ if (windowType === "main") {
     maximizeWindow: async () => await ipcRenderer.invoke("maximize-window"),
     isMaximized: async () => await ipcRenderer.invoke("get-is-maximized"),
     getWindowConfig: async () => await ipcRenderer.invoke("get-window-config"),
+    restartApp: async () => await ipcRenderer.invoke("restart-app"),
 
     // CONFIG
     getAllConfig: async () => await ipcRenderer.invoke("get-all-config"),
+    getAllConfigWithDescriptions: async () => await ipcRenderer.invoke("get-all-config-with-descriptions"),
     getConfigValue: async (key: string) => await ipcRenderer.invoke("get-config-value", key),
     setConfigValue: async (key: string, value: string) => await ipcRenderer.invoke("set-config-value", key, value),
     setConfigBatch: async (configs: Record<string, string>) => await ipcRenderer.invoke("set-config-batch", configs),

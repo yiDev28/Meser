@@ -128,6 +128,7 @@ export interface ElectronAPI {
 
   // CONFIG
   getAllConfig: () => Promise<Record<string, string>>;
+  getAllConfigWithDescriptions: () => Promise<Record<string, { value: string; description: string }>>;
   getConfigValue: (key: string) => Promise<string | null>;
   setConfigValue: (key: string, value: string) => Promise<void>;
   setConfigBatch: (configs: Record<string, string>) => Promise<void>;
@@ -139,4 +140,7 @@ export interface ElectronAPI {
   }>>;
   setScreenIndex: (index: number) => Promise<void>;
   detectDisplay: () => Promise<number>;
+
+  // APP
+  restartApp: () => Promise<void>;
 }

@@ -35,6 +35,10 @@ export const useApp = () => {
     return await window.electron.getWindowConfig();
   };
 
+  const restartApp = async () => {
+    await window.electron.restartApp();
+  };
+
   return {
     handleExit,
     minimizeWindow,
@@ -42,5 +46,6 @@ export const useApp = () => {
     closeWindow,
     isMaximized,
     getWindowConfig,
+    restartApp,
   };
 };

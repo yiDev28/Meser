@@ -49,7 +49,7 @@ const App: React.FC = () => {
     <>
       {useAlertService()}
       <div className="flex flex-col h-screen">
-        {hideTitleBar && <TitleBar onSettingsClick={() => setShowScreenSelector(true)} />}
+        {hideTitleBar && <TitleBar onScreenSelectorClick={() => setShowScreenSelector(true)} />}
         <div className="flex-1 overflow-hidden">
           {isRegistered ? (
             <AuthProvider>
